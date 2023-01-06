@@ -2,7 +2,7 @@
 server:
   port: ${PORT:443}
   servlet:
-    context-path: /pet-clinic # The root context path
+    context-path: /pet-clinic-client # The root context path
 
   ssl:
     enabled: true
@@ -14,33 +14,10 @@ server:
 # Spring setting
 spring:
   application:
-    name: PetClinic Security Demo
+    name: PetClinicClient Security Demo
 
   #  profiles:
 #    active: dev
-
-  datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/pet_clinic}
-    username: ${POSTGRES_USER:pet_clinic_admin}
-    password: ${POSTGRES_PASS:123}
-
-  liquibase:
-    enabled: true
-    drop-first: false
-    change-log: classpath:db/changelog/liquibase-changelog.xml
-    default-schema: public
-
-  jpa:
-    show-sql: true
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
-        show_sql: true
-        format_sql: true
-
 
   # https://www.baeldung.com/sso-spring-security-oauth2
   # https://www.baeldung.com/spring-security-oauth-resource-server
@@ -56,7 +33,7 @@ spring:
             client-secret: 45XXs3v8JxhjhLBioocA4bS5P6GG1Z4u
             authorization-grant-type: authorization_code
             scope: openid,email,profile
-            redirect-uri: https://myhost.local/pet-clinic
+            redirect-uri: https://myhost.local/pet-clinic-client
 
         provider:
           keycloak:
@@ -67,18 +44,4 @@ spring:
             jwk-set-uri: https://mydebian.local:8443/realms/PetClinicRearm/protocol/openid-connect/certs
 
             user-name-attribute: preferred_username
-
-#      resourceserver:
-#        jwt:
-#          issuer-uri: https://mydebian.local:8443/realms/PetClinicRearm
-#          jwk-set-uri: https://mydebian.local:8443/realms/PetClinicRearm/protocol/openid-connect/certs
-
-
-
-# Actuator setting
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
